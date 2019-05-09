@@ -1,10 +1,13 @@
 
 # usain
----
+
 A fast lightweight task scheduler framework based on schedule
 
 [![Build Status](https://travis-ci.com/adhaamehab/usian.svg?branch=master)](https://travis-ci.com/adhaamehab/usian)
 
+
+<img src="./icon.svg"
+     width="170" height="190" align="middle" hspace="12" />
 
 
 ### Features
