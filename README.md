@@ -3,6 +3,8 @@
 ---
 A fast lightweight task scheduler framework based on schedule
 
+[![Build Status](https://travis-ci.com/adhaamehab/usian.svg?branch=master)](https://travis-ci.com/adhaamehab/usian)
+
 
 
 ### Features
