@@ -63,6 +63,12 @@ if __name__ == "__main__":
 
 - Visualization dashboard
 
+- Background tasks
+
+- Custome logging
+
+- Tasks shared memory
+
 
 Free software: MIT license
 
