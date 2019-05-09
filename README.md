@@ -39,18 +39,20 @@ runner.add(t1, 3)
 if __name__ == "__main__":
     runner.run()
 
-2019-05-09 17:25:14.867 | INFO     | usain.usain:_run_job:61 -
-2019-05-09 17:25:14.868 | INFO     | usain.usain:_run:34 - Running pipeline for task test-task with intial data
-2019-05-09 17:25:14.868 | DEBUG    | usain.usain:_run:35 - Task test-task running at node 1 out of 3
-2019-05-09 17:25:14.869 | DEBUG    | usain.usain:_run:38 - Task test-task running at node 2 out of 3
-2019-05-09 17:25:14.869 | DEBUG    | usain.usain:_run:38 - Task test-task running at node 3 out of 3
+'''
+| INFO     | usain.usain:_run_job:61 -
+| INFO     | usain.usain:_run:34 - Running pipeline for task test-task with intial data
+| DEBUG    | usain.usain:_run:35 - Task test-task running at node 1 out of 3
+| DEBUG    | usain.usain:_run:38 - Task test-task running at node 2 out of 3
+| DEBUG    | usain.usain:_run:38 - Task test-task running at node 3 out of 3
 4
-2019-05-09 17:25:17.878 | INFO     | usain.usain:_run_job:61 -
-2019-05-09 17:25:17.879 | INFO     | usain.usain:_run:34 - Running pipeline for task test-task with intial data
-2019-05-09 17:25:17.879 | DEBUG    | usain.usain:_run:35 - Task test-task running at node 1 out of 3
-2019-05-09 17:25:17.880 | DEBUG    | usain.usain:_run:38 - Task test-task running at node 2 out of 3
-2019-05-09 17:25:17.880 | DEBUG    | usain.usain:_run:38 - Task test-task running at node 3 out of 3
-
+| INFO     | usain.usain:_run_job:61 -
+| INFO     | usain.usain:_run:34 - Running pipeline for task test-task with intial data
+| DEBUG    | usain.usain:_run:35 - Task test-task running at node 1 out of 3
+| DEBUG    | usain.usain:_run:38 - Task test-task running at node 2 out of 3
+| DEBUG    | usain.usain:_run:38 - Task test-task running at node 3 out of 3
+4
+'''
 # will keep going
 
 ```
