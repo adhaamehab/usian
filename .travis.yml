@@ -1,0 +1,16 @@
+language: python
+python:
+- 3.6
+- 3.5
+install: pip install -r requirements.txt
+deploy:
+  provider: pypi
+  distributions: sdist bdist_wheel
+  user: adhaamehab
+  password:
+    secure: p6gLO2PLE2s9zgUNQpqsxet5TskMd4GbHWD22/R9NNBrJF3c61JkK8elh5Fb8rYx9y0Xx/bLVijYkI2MEhcKnBH968Agp1iVk4nTm4C8ViEeEM7pgbdYQxRrfpAz/K0Y4+n/+sZpAqsNqgfHdp25njgwl7MaEMvaznJ4LYzECZmaoNfNXzArEhMelFNvJf42HU8V4m88N5jBZv4+XuO896Fc0gUUtyiDn3SHwo9BTOpZYxHN81M7hyv3E0aknvIBR2v7yTvczi9UgBf5Ze/TG+JCz8Y4dYxMiR+jqRb80dQd8kP+ie4o+zLqqNcTuxiw2NThVNjYTij5GLLicHzC+K5MJDjv03AFaxMe8RUQzDavxLnZ0DE3sjgvDHxLfGENiphI8OvYE+e+uAAoBnTNaKELUwkFrKyxE4WQBd/zGAEMb3emKg4bdJdxQy8TPLFRZBsu6wI4p+NV7Gon+EWDNEHKKrbTgAfv6Q//c8RdFmziuk9yUcEAnobVj2E49txZNRFW8VtKOwHx/f3M2prvieoCKT3m7PMuvOBXprjQLQdLDHwNcOw8/Ec6cGaGR0Nb3N6Ls+AXMPn2H7XZ3jBRVLFVJc11RXWdj68lQ0eV4vm1bnlC0gdSlFRDYz/XIvgy6t7WT8A2EuUMXqANSnD+JFDLvNR98G1j1gi7jFBSwc4=
+  on:
+    tags: true
+    branch: master
+    repo: adhaamehab/usain
+    python: 3.6
