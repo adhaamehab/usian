@@ -64,9 +64,11 @@ hello usain
 
 - Simple Task Pipelines
 
+- Non-blocking background tasks
+
 - Multithreading Task Runner
 
-- Handling exception
+-  Exception handling
 
 - Minimal Interface
 
