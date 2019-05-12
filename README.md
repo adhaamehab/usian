@@ -61,9 +61,11 @@ if __name__ == "__main__":
 
 - Simple Task Pipelines
 
+- Non-blocking background tasks
+
 - Multithreading Task Runner
 
-- Handling exception
+-  Exception handling
 
 - Minimal Interface
 
@@ -76,10 +78,6 @@ if __name__ == "__main__":
 - Task pipeline retry on fail
 
 - Task visualization dashboard
-
-- Visualization dashboard
-
-- Background tasks
 
 - Custome logging
 
