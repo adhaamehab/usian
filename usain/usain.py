@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from loguru import logger
 import threading
+import multiprocessing as mp
 
 from schedule import Scheduler
 import datetime
@@ -12,11 +13,13 @@ import time
 
 class Task:
 
-    def __init__(self, name, pipe, init_data=None,):
+    def __init__(self, name, pipe, init_data=None, daemon=True):
         self.name = name
+        self.unique_id = self.name + str(id(self))
         self.status = 'stopped'
         self._init_data = init_data
         self._pipeline = pipe
+        self.daemon = daemon
 
     def __str__(self):
 
@@ -42,40 +45,49 @@ class Task:
         """
         Run the pipeline on the data
         """
-        job_thread = threading.Thread(target=self._run)
-        job_thread.start()
+        if self.daemon:
+            job_thread = threading.Thread(target=self._run)
+            job_thread.start()
+        else:
+            self._run()
 
 
+class Runner:
 
-class Runner(Scheduler):
-    """Tasks runner
-    """
-
-    def __init__(self, name='Global Runner'):
+    def __init__(self, name='Native Runner', daemon=True):
         self.name = name
         self.status = 'stopped'
-        super().__init__()
-
-    def _run_job(self, job):
-        try:
-            logger.info("")
-            super()._run_job(job)
-        except Exception as e:
-            logger.error(e)
-            job.last_run = datetime.datetime.now()
-            job._schedule_next_run()
+        self._agenda, self._tasks = {}, {}
+        self.daemon = True
 
     def add(self, task, seconds):
-        """Add task to task list"""
-        if seconds == 1:
-            self.every(seconds).second.do(task.run)
-        else:
-            self.every(seconds).seconds.do(task.run)
+        self._agenda[task.unique_id] = seconds
+        self._tasks[task.unique_id] = task
 
+    def _checkpending(self):
+        def _reschedule(d):
+            while 1:
+                for k, v in d.items():
+                    d[k] = v - 1 if v > 0 else 0
+                time.sleep(1)
+        schedulingThread = threading.Thread(target=_reschedule, args=(self._agenda, ))
+        schedulingThread.start()
 
-    def run(self):
-        while True:
-            super().run_pending()
+    def _run_pending(self):
+        while 1:
+            for k, v in self._agenda.items():
+                if v == 0:
+                    self._tasks[k].daemon = True
+                    self._tasks[k].run()
             time.sleep(1)
 
+    def _background_worker(self):
+        workerThread = threading.Thread(target=self._run_pending)
+        workerThread.start()
 
+    def run(self):
+        self._checkpending()
+        if self.daemon:
+            self._background_worker()
+        else:
+            self._run_pending()

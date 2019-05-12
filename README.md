@@ -1,7 +1,7 @@
 
 # usain
 
-A fast lightweight task scheduler framework based on schedule
+A native fast lightweight task scheduler framework and background jobs
 
 [![Build Status](https://travis-ci.com/adhaamehab/usian.svg?branch=master)](https://travis-ci.com/adhaamehab/usian)
 
@@ -37,11 +37,14 @@ runner = Runner()
 runner.add(t1, 3)
 
 if __name__ == "__main__":
-    runner.run()
+    runner.run() # will run in the background
+    print('hello usain') # will be printed while the task running
 
 '''
+
 | INFO     | usain.usain:_run_job:61 -
 | INFO     | usain.usain:_run:34 - Running pipeline for task test-task with intial data
+hello usain
 | DEBUG    | usain.usain:_run:35 - Task test-task running at node 1 out of 3
 | DEBUG    | usain.usain:_run:38 - Task test-task running at node 2 out of 3
 | DEBUG    | usain.usain:_run:38 - Task test-task running at node 3 out of 3
@@ -67,6 +70,12 @@ if __name__ == "__main__":
 
 - Minimal Interface
 
+- Background jobs
+
+- Non-blocking runner
+
+- Add new tasks on runtime
+
 ### TODO
 
 - Depndancy control in Runner/Task
@@ -77,13 +86,10 @@ if __name__ == "__main__":
 
 - Task visualization dashboard
 
-- Visualization dashboard
-
-- Background tasks
-
 - Custome logging
 
 - Tasks shared memory
+
 
 
 Free software: MIT license
