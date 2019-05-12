@@ -11,11 +11,11 @@ with open('README.md') as readme_file:
 with open('HISTORY.md') as history_file:
     history = history_file.read()
 
-requirements = [ 'loguru', 'schedule']
+requirements = ['loguru']
 
-setup_requirements = [ ]
+setup_requirements = []
 
-test_requirements = [ ]
+test_requirements = []
 
 setup(
     author="Adham Ehab",
@@ -41,6 +41,6 @@ setup(
     test_suite='tests',
     tests_require=test_requirements,
     url='https://github.com/adhaamehab/usain',
-    version='0.1.0',
+    version='0.2.0',
     zip_safe=False,
 )
