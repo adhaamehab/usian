@@ -74,6 +74,7 @@ class Runner:
                     self._agenda[k] = self._taskstimes[k]
                 else:
                     self._agenda[k] -= 1
+
             time.sleep(1)
 
     def _background_worker(self):
