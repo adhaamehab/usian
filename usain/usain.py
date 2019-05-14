@@ -57,21 +57,13 @@ class Runner:
     def __init__(self, name='Native Runner', daemon=True):
         self.name = name
         self.status = 'stopped'
-        self._agenda, self._tasks = {}, {}
+        self._agenda, self._tasks, self._taskstimes = {}, {}, {}
         self.daemon = True
 
     def add(self, task, seconds):
         self._agenda[task.unique_id] = seconds
+        self._taskstimes[task.unique_id] = seconds
         self._tasks[task.unique_id] = task
-
-    def _checkpending(self):
-        def _reschedule(d):
-            while 1:
-                for k, v in d.items():
-                    d[k] = v - 1 if v > 0 else 0
-                time.sleep(1)
-        schedulingThread = threading.Thread(target=_reschedule, args=(self._agenda, ))
-        schedulingThread.start()
 
     def _run_pending(self):
         while 1:
@@ -79,6 +71,9 @@ class Runner:
                 if v == 0:
                     self._tasks[k].daemon = True
                     self._tasks[k].run()
+                    self._agenda[k] = self._taskstimes[k]
+                else:
+                    self._agenda[k] -= 1
             time.sleep(1)
 
     def _background_worker(self):
@@ -86,7 +81,6 @@ class Runner:
         workerThread.start()
 
     def run(self):
-        self._checkpending()
         if self.daemon:
             self._background_worker()
         else:
