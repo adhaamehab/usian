@@ -3,7 +3,6 @@ from loguru import logger
 import threading
 import multiprocessing as mp
 
-from schedule import Scheduler
 import datetime
 import time
 
@@ -12,39 +11,49 @@ import time
 
 
 class Task:
-
     def __init__(self, name, pipe, init_data=None, daemon=True):
+        """Create new task."""
         self.name = name
         self.unique_id = self.name + str(id(self))
-        self.status = 'stopped'
+        self.status = "stopped"
         self._init_data = init_data
         self._pipeline = pipe
         self.daemon = daemon
 
     def __str__(self):
-
-        return 'Task: {name} is {status}'.format(
-            name=self.name,
-            status=self.status,
-        )
+        return "Task: {name} is {status}".format(name=self.name, status=self.status)
 
     def _run(self):
         if self._init_data is None:
-            logger.info('Running pipeline for task {} without intial data'.format(self.name))
-            logger.debug("Task {} running at node 1 out of {}".format(self.name, len(self._pipeline)))
+            logger.info(
+                "Running pipeline for task {} without initial data".format(self.name)
+            )
+            logger.debug(
+                "Task {} running at node 1 out of {}".format(
+                    self.name, len(self._pipeline)
+                )
+            )
             res = self._pipeline[0]()
         else:
-            logger.info('Running pipeline for task {} with intial data'.format(self.name))
-            logger.debug("Task {} running at node 1 out of {}".format(self.name, len(self._pipeline)))
+            logger.info(
+                "Running pipeline for task {} with initial data".format(self.name)
+            )
+            logger.debug(
+                "Task {} running at node 1 out of {}".format(
+                    self.name, len(self._pipeline)
+                )
+            )
             res = self._pipeline[0](self._init_data)
         for idx, fn in enumerate(self._pipeline[1:]):
-            logger.debug("Task {} running at node {} out of {}".format(self.name, idx + 2, len(self._pipeline)))
+            logger.debug(
+                "Task {} running at node {} out of {}".format(
+                    self.name, idx + 2, len(self._pipeline)
+                )
+            )
             res = fn(res)
 
     def run(self):
-        """
-        Run the pipeline on the data
-        """
+        """Run the pipeline on the data."""
         if self.daemon:
             job_thread = threading.Thread(target=self._run)
             job_thread.start()
@@ -53,10 +62,9 @@ class Task:
 
 
 class Runner:
-
-    def __init__(self, name='Native Runner', daemon=True):
+    def __init__(self, name="Native Runner", daemon=True):
         self.name = name
-        self.status = 'stopped'
+        self.status = "stopped"
         self._agenda, self._tasks, self._taskstimes = {}, {}, {}
         self.daemon = True
 
